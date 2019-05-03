@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://guest:guest1234@mean-oehzt.mongodb.net/test?retryWrites=true"
+}
