@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const profileSchema = new mongoose.Schema({
+const profileRepository = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
@@ -25,7 +25,7 @@ const profileSchema = new mongoose.Schema({
     bio: {
         type: String
     },
-    githubusername: {
+    githubuername: {
         type: String
     },
     experience: [{
@@ -100,4 +100,4 @@ const profileSchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model('profile', profileSchema)
+export default mongoose.model('profile', profileRepository)
