@@ -7,9 +7,7 @@ import {
 import userRepository from '../models/user/user.repository'
 import gravatar from 'gravatar'
 import bcrypt from 'bcryptjs'
-import {
-    Schema
-} from 'mongoose';
+import jwt from 'jsonwebtoken'
 
 
 //route     POST api/users
@@ -41,7 +39,7 @@ router.post('/', checkData, async (req, res) => {
             email
         })
 
-        if (user) {
+        if (finduser) {
             res.status(400).json({
                 errors: [{
                     msg: 'User already exists'
@@ -54,12 +52,9 @@ router.post('/', checkData, async (req, res) => {
             d: 'mm'
         })
 
-
-
         const salt = await bcrypt.genSalt(10)
 
         const hastPassword = await bcrypt.hash(password, salt)
-
 
         const newData = {
             ...req.body,
@@ -67,7 +62,20 @@ router.post('/', checkData, async (req, res) => {
             password: hastPassword
         }
         const createUser = await userRepository.create(newData)
-        res.send('user route')
+        const payload = {
+            user: {
+                id: createUser._id
+            }
+        }
+
+        const jwtSign = await jwt.sign(payload, process.env.jwtSecret, {
+            expiresIn: process.env.expiresInTime
+        })
+        if (jwtSign) {
+            res.json({
+                jwtSign
+            })
+        }
 
     } catch (error) {
         console.error(error.message)

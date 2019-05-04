@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import express from 'express'
 import connectDb from './config/db'
 import {
@@ -28,8 +29,5 @@ app.use('/api/auth', routerAuth)
 app.use('/api/profile', routeProfile)
 app.use('/api/posts', routePost)
 
-
-const PORT = process.env.PORT || 8080
-
-
-app.listen(PORT, () => console.log(`Server startrd on port ${PORT}`))
+console.log('process.env.PORT ::', process.env.PORT)
+app.listen(process.env.PORT, () => console.log(`Server startrd on port ${process.env.PORT}`))
