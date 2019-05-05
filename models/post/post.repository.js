@@ -21,7 +21,7 @@ const postRepository = new mongoose.Schema({
             ref: 'user'
         }
     }],
-    comment: [{
+    comments: [{
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
